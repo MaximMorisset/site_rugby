@@ -17,6 +17,9 @@ class Terrain
     #[ORM\Column(type: Types::TEXT)]
     private ?string $lieu = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Entrainement $entrainement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,18 @@ class Terrain
     public function setLieu(string $lieu): static
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getEntrainement(): ?Entrainement
+    {
+        return $this->entrainement;
+    }
+
+    public function setEntrainement(?Entrainement $entrainement): static
+    {
+        $this->entrainement = $entrainement;
 
         return $this;
     }

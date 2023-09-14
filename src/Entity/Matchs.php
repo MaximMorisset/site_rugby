@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MatchsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,17 @@ class Matchs
 
     #[ORM\Column]
     private ?bool $annule = null;
+
+    #[ORM\OneToMany(mappedBy: 'matchs', targetEntity: EquipeMatch::class)]
+    private Collection $equipe_match;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Terrain $terrain = null;
+
+    public function __construct()
+    {
+        $this->equipe_match = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +133,48 @@ class Matchs
     public function setAnnule(bool $annule): static
     {
         $this->annule = $annule;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EquipeMatch>
+     */
+    public function getEquipeMatch(): Collection
+    {
+        return $this->equipe_match;
+    }
+
+    public function addEquipeMatch(EquipeMatch $equipeMatch): static
+    {
+        if (!$this->equipe_match->contains($equipeMatch)) {
+            $this->equipe_match->add($equipeMatch);
+            $equipeMatch->setMatchs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipeMatch(EquipeMatch $equipeMatch): static
+    {
+        if ($this->equipe_match->removeElement($equipeMatch)) {
+            // set the owning side to null (unless already changed)
+            if ($equipeMatch->getMatchs() === $this) {
+                $equipeMatch->setMatchs(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTerrain(): ?Terrain
+    {
+        return $this->terrain;
+    }
+
+    public function setTerrain(?Terrain $terrain): static
+    {
+        $this->terrain = $terrain;
 
         return $this;
     }

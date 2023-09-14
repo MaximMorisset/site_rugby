@@ -13,8 +13,23 @@ class EquipeMatch
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'equipe_match')]
+    private ?Matchs $matchs = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getMatchs(): ?Matchs
+    {
+        return $this->matchs;
+    }
+
+    public function setMatchs(?Matchs $matchs): static
+    {
+        $this->matchs = $matchs;
+
+        return $this;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -36,6 +38,26 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $annee_naissance = null;
+
+    #[ORM\ManyToMany(targetEntity: Poste::class, mappedBy: 'joueurs')]
+    private Collection $postes;
+
+    #[ORM\ManyToMany(targetEntity: Equipe::class, inversedBy: 'utilisateurs')]
+    private Collection $equipes;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateurs', targetEntity: Stats::class)]
+    private Collection $stats;
+
+    #[ORM\ManyToMany(targetEntity: Club::class, inversedBy: 'utilisateurs')]
+    private Collection $club;
+
+    public function __construct()
+    {
+        $this->postes = new ArrayCollection();
+        $this->equipes = new ArrayCollection();
+        $this->stats = new ArrayCollection();
+        $this->club = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,6 +161,111 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAnneeNaissance(\DateTimeInterface $annee_naissance): static
     {
         $this->annee_naissance = $annee_naissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Poste>
+     */
+    public function getPostes(): Collection
+    {
+        return $this->postes;
+    }
+
+    public function addPoste(Poste $poste): static
+    {
+        if (!$this->postes->contains($poste)) {
+            $this->postes->add($poste);
+            $poste->addJoueur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePoste(Poste $poste): static
+    {
+        if ($this->postes->removeElement($poste)) {
+            $poste->removeJoueur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipe>
+     */
+    public function getEquipes(): Collection
+    {
+        return $this->equipes;
+    }
+
+    public function addEquipe(Equipe $equipe): static
+    {
+        if (!$this->equipes->contains($equipe)) {
+            $this->equipes->add($equipe);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(Equipe $equipe): static
+    {
+        $this->equipes->removeElement($equipe);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stats>
+     */
+    public function getStats(): Collection
+    {
+        return $this->stats;
+    }
+
+    public function addStat(Stats $stat): static
+    {
+        if (!$this->stats->contains($stat)) {
+            $this->stats->add($stat);
+            $stat->setUtilisateurs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStat(Stats $stat): static
+    {
+        if ($this->stats->removeElement($stat)) {
+            // set the owning side to null (unless already changed)
+            if ($stat->getUtilisateurs() === $this) {
+                $stat->setUtilisateurs(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Club>
+     */
+    public function getClub(): Collection
+    {
+        return $this->club;
+    }
+
+    public function addClub(Club $club): static
+    {
+        if (!$this->club->contains($club)) {
+            $this->club->add($club);
+        }
+
+        return $this;
+    }
+
+    public function removeClub(Club $club): static
+    {
+        $this->club->removeElement($club);
 
         return $this;
     }

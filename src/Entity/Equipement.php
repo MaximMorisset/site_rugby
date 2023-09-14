@@ -19,6 +19,9 @@ class Equipement
     #[ORM\Column]
     private ?int $nbr = null;
 
+    #[ORM\ManyToOne(inversedBy: 'equipement')]
+    private ?Club $club = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Equipement
     public function setNbr(int $nbr): static
     {
         $this->nbr = $nbr;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): static
+    {
+        $this->club = $club;
 
         return $this;
     }

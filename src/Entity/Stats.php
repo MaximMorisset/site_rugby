@@ -31,6 +31,9 @@ class Stats
     #[ORM\Column(nullable: true)]
     private ?int $plaquage_rate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'stats')]
+    private ?Utilisateurs $utilisateurs = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +107,18 @@ class Stats
     public function setPlaquageRate(?int $plaquage_rate): static
     {
         $this->plaquage_rate = $plaquage_rate;
+
+        return $this;
+    }
+
+    public function getUtilisateurs(): ?Utilisateurs
+    {
+        return $this->utilisateurs;
+    }
+
+    public function setUtilisateurs(?Utilisateurs $utilisateurs): static
+    {
+        $this->utilisateurs = $utilisateurs;
 
         return $this;
     }
