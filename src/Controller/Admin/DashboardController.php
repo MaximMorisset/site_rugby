@@ -5,6 +5,13 @@ namespace App\Controller\Admin;
 use App\Entity\Club;
 use App\Entity\Matchs;
 use App\Entity\Poste;
+use App\Entity\Entrainement;
+use App\Entity\Equipe;
+use App\Entity\EquipeMatch;
+use App\Entity\Equipement;
+use App\Entity\Stats;
+use App\Entity\Terrain;
+use App\Entity\Utilisateurs;
 use Doctrine\ORM\Query\Expr\Math;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -21,6 +28,7 @@ class DashboardController extends AbstractDashboardController
         // return parent::index();
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(PosteCrudController::class)->generateUrl();
+        
 
         return $this->redirect($url);
 
@@ -55,5 +63,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Poste', 'fas fa-map-marker-alt', Poste::class);
         yield MenuItem::linkToCrud('Club', 'fas fa-map-marker-alt', Club::class);
         yield MenuItem::linkToCrud('Matchs', 'fas fa-map-marker-alt', Matchs::class);
+        yield MenuItem::linkToCrud('Entrainement', 'fas fa-map-marker-alt', Entrainement::class);
+        yield MenuItem::linkToCrud('Equipe', 'fas fa-map-marker-alt', Equipe::class);
+        yield MenuItem::linkToCrud('EquipeMatch', 'fas fa-map-marker-alt', EquipeMatch::class);
+        yield MenuItem::linkToCrud('Stats', 'fas fa-map-marker-alt', Stats::class);
+        yield MenuItem::linkToCrud('Terrain', 'fas fa-map-marker-alt', Terrain::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateurs::class);
     }
 }
