@@ -38,9 +38,11 @@ class RegistrationFormType extends AbstractType
             ->add('annee_naissance', DateType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseignez votre Date de Naissance (YYYY/MM/DD)'
+                        'message' => 'Veuillez renseigner votre Date de Naissance (YYYY/MM/DD)'
                     ])
-                ]
+                ],
+                'years' => range(1950   , date('Y') + 10),
+                'format' => 'dd/MM/yyyy',
             ])
             ->add('email', EmailType::class, [
 
