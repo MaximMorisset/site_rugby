@@ -22,6 +22,10 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
+                'label'=> false,
+                'attr' => [
+                    'placeholder' => 'Nom',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseignez votre Nom'
@@ -29,6 +33,10 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('prenom', TextType::class, [
+                'label'=> false,
+                'attr' => [
+                    'placeholder' => 'Prenom',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseignez votre Prenom'
@@ -36,30 +44,42 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('annee_naissance', DateType::class, [
+                'label'=> 'Année de Naissance',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre Date de Naissance (YYYY/MM/DD)'
                     ])
                 ],
-                'years' => range(1950   , date('Y') + 10),
+                'years' => range(1950, date('Y') + 10),
                 'format' => 'dd/MM/yyyy',
             ])
             ->add('email', EmailType::class, [
-
+                'label'=> false,
+                'attr' => [
+                    'placeholder' => 'Adresse Mail',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre Date de Naissance (YYYY/MM/DD)'
+                    ])
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => "Veuillez acceptez les conditions d'utilisations.",
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => "Veuillez acceptez les conditions d'utilisations.",
+                        'message' => "Veuillez cochez les conditions d'utilisations.",
                     ]),
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'label'=> false,
+                'attr' => [
+                    'placeholder' => 'Mot de Passe',
+                    'autocomplete' => 'new-password'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre Mot de Passe',
@@ -71,8 +91,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

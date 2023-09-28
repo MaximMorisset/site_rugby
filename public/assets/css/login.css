@@ -1,0 +1,24 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    -webkit-scrollbar {
+        width: 0 !important
+    }
+}
+
+.vide {
+    margin-bottom: 20px;
+}
+
+.auth button {
+    margin-bottom: 28px;
+}
+
+form {
+    align-self: center;
+}
+
+.auth .terms{
+    text-align: center;
+}
