@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Utilisateurs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -21,6 +22,17 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Choisissez vos rôles : ',
+                'choices' => [
+                    'Supporter' =>'ROLE_SUPPORTER',
+                    'Joueur' => 'ROLE_JOUEUR',
+                    'Entraîneur' => 'ROLE_ENTRAINEUR',
+                    'President' => 'ROLE_PRESIDENT',
+                ],
+                'multiple' => true, 
+                'expanded' => true, // si je veux afficher les choix comme des cases à cocher
+            ])
             ->add('nom', TextType::class, [
                 'label'=> false,
                 'attr' => [
@@ -50,11 +62,11 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez renseigner votre Date de Naissance (YYYY/MM/DD)'
                     ])
                 ],
-                'years' => range(1950, date('Y') + 10),
+                'years' => range(time() - 30, date('Y') + 10),
                 'format' => 'dd/MM/yyyy',
             ])
             ->add('email', EmailType::class, [
-                'label'=> false,
+                'label'=> false,    
                 'attr' => [
                     'placeholder' => 'Adresse Mail',
                 ],

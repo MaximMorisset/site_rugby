@@ -53,6 +53,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Club::class, inversedBy: 'utilisateurs')]
     private Collection $club;
 
+
     public function __construct()
     {
         $this->postes = new ArrayCollection();
@@ -271,4 +272,5 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

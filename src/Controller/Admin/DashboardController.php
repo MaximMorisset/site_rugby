@@ -52,7 +52,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('App');
+            ->setTitle('MatchDayMate');
     }
 
     public function configureMenuItems(): iterable

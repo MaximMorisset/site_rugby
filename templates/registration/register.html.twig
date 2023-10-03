@@ -17,7 +17,6 @@
                 Inscription
                               
               </h3>
-              <form>
                 {{ form_start(registrationForm) }}
                 <div class="vide">
                   {{ form_row(registrationForm.nom, {'attr' : {'class':'form-control', }}
@@ -46,6 +45,10 @@
                 <div class="vide">
                   {{ form_row(registrationForm.plainPassword, {'attr' : {'class':'form-control', }}
                   ) }}
+
+                  <div class="vide">
+                  {{ form_row(registrationForm.roles, {'attr' : {'class':'form-control', }}
+                  ) }}
                                                           
                                   
                 </div>
@@ -70,7 +73,6 @@
                                       
                   </a>
                 </p>
-              </form>
             </div>
           </div>
         </div>
