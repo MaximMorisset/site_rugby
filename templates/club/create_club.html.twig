@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Création d'un Club
+  
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+      <div class="col-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title text-left mb-3">
+              Création d'un Club
+            </h3>
+            {{ form_errors(clubForm) }}
+            {{ form_start(clubForm, {'attr' : {'class':'forms-sample', }}
+            ) }}
+                    
+            <div class="vide">
+              {{ form_row(clubForm.nom, {'attr' : {'class':'form-group form-control', }}
+              ) }}
+                        
+                      
+            </div>
+            <div class="vide">
+              {{ form_row(clubForm.terrains, {'attr' : {'class':'form-group form-control', }}
+              ) }}
+
+                <button type="submit" class="btn btn-primary mr-2">
+                  Créez un Nouveau Club
+                </button>
+
+              {{ form_end(clubForm) }}
+            </div>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+      

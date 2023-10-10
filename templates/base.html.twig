@@ -16,6 +16,7 @@
             <link rel="stylesheet" href="{{ asset('assets/vendors/owl-carousel-2/owl.carousel.min.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/vendors/owl-carousel-2/owl.theme.default.min.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}">
         {% block stylesheets %}
         {% endblock %}
 
@@ -39,9 +40,13 @@
             {% include  'sidebar.html.twig' %}
             <div class="container-fluid page-body-wrapper">
                 {% include  'navbar.html.twig' %}
-                {% block content %}{% endblock %}
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        {% block content %}{% endblock %}
+                    </div> 
+                </div>
                 {% include 'footer.html.twig' %}
             </div>
         </div>
     </body>
-</html></div></body></html>
+</html>

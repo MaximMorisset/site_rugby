@@ -16,7 +16,7 @@
             </ul>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-none d-lg-block">
-                    <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#">
+                    <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" >
                         Vos Club
                                                             
                     </a>
@@ -54,7 +54,7 @@
                             </div>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item" href"{{ path('app_add_club') }}">
+                        <a class="dropdown-item preview-item" href="{{ path('app_create_club') }}">
                             <div class="preview-thumbnail">
                                 <div class="preview-icon bg-dark rounded-circle">
                                     <i class="mdi mdi-layers text-danger"></i>
@@ -67,11 +67,13 @@
                                 </p>
                             </div>
                         </a>
-                        <div class="dropdown-divider"></div>
+                        <a class="link" href="{{ path('app_club') }}">
+                        <div class="dropdown-divider" ></div>
                         <p class="p-3 mb-0 text-center">
                             Voir tous vos Clubs
                                                                     
                         </p>
+                    </a>   
                     </div>
                 </li>
                 <li class="nav-item nav-settings d-none d-lg-block">
