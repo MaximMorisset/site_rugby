@@ -20,7 +20,7 @@ class ClubRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Club::class);
     }
-
+    
 //    /**
 //     * @return Club[] Returns an array of Club objects
 //     */

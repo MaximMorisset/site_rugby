@@ -27,10 +27,14 @@ class Club
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?EquipeMatch $equipe_match = null;
 
+    #[ORM\ManyToMany(targetEntity: Terrain::class, mappedBy: 'relation')]
+    private Collection $terrains;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
         $this->equipement = new ArrayCollection();
+        $this->terrains = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +119,33 @@ class Club
     public function setEquipeMatch(?EquipeMatch $equipe_match): static
     {
         $this->equipe_match = $equipe_match;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Terrain>
+     */
+    public function getTerrains(): Collection
+    {
+        return $this->terrains;
+    }
+
+    public function addTerrain(Terrain $terrain): static
+    {
+        if (!$this->terrains->contains($terrain)) {
+            $this->terrains->add($terrain);
+            $terrain->addRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerrain(Terrain $terrain): static
+    {
+        if ($this->terrains->removeElement($terrain)) {
+            $terrain->removeRelation($this);
+        }
 
         return $this;
     }

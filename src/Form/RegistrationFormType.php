@@ -62,7 +62,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez renseigner votre Date de Naissance (YYYY/MM/DD)'
                     ])
                 ],
-                'years' => range(time() - 30, date('Y') + 10),
+                'years' => range(date('Y') - 60, date('Y')),
                 'format' => 'dd/MM/yyyy',
             ])
             ->add('email', EmailType::class, [

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TerrainRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,14 @@ class Terrain
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Entrainement $entrainement = null;
+
+    #[ORM\ManyToMany(targetEntity: Club::class, inversedBy: 'terrains')]
+    private Collection $relation;
+
+    public function __construct()
+    {
+        $this->relation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +55,30 @@ class Terrain
     public function setEntrainement(?Entrainement $entrainement): static
     {
         $this->entrainement = $entrainement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Club>
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(Club $relation): static
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation->add($relation);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Club $relation): static
+    {
+        $this->relation->removeElement($relation);
 
         return $this;
     }
