@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Club;
 use App\Form\ClubType;
+use App\Repository\ClubRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 class ClubController extends AbstractController
 {
     #[Route('/club', name: 'app_club')]
-    public function index(): Response
+    public function index(ClubRepository $clubRepository): Response
     {
+        $clubs = $clubRepository->findAll();
+
         return $this->render('club/club.html.twig', [
+            'clubs' => $clubs,
             'controller_name' => 'ClubController',
         ]);
     }

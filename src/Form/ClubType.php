@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ClubType extends AbstractType
@@ -21,7 +22,7 @@ class ClubType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseignez votre Nom'
+                        'message' => 'Veuillez saisir votre Nom'
                     ])
                 ]
             ])
@@ -32,7 +33,29 @@ class ClubType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message'=> "Veuillez saisir l'adresse du terrain" 
+                        'message'=> "Veuillez saisir l'adresse du Terrain" 
+                    ])
+                ]
+            ])
+            ->add('telephone', TelType::class, [
+                'label'=> 'Numéro de Téléphone', 
+                'attr' => [
+                    'placeholder' => 'Numéro de Télephone'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message'=> "Veuillez saisir le Numéro de Telephone" 
+                    ])
+                ]
+            ])
+            ->add('clubhouse', TextType::class, [
+                'label'=> 'Adresse du ClubHouse', 
+                'attr' => [
+                    'placeholder' => 'Adresse du ClubHouse'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message'=> "Veuillez saisir l'adresse du ClubHouse'" 
                     ])
                 ]
             ])

@@ -30,6 +30,21 @@ class Club
     #[ORM\ManyToMany(targetEntity: Terrain::class, mappedBy: 'relation')]
     private Collection $terrains;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $telephone = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $clubhouse = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ville = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $code_postale = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $entente = null;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
@@ -146,6 +161,66 @@ class Club
         if ($this->terrains->removeElement($terrain)) {
             $terrain->removeRelation($this);
         }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?int $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getClubhouse(): ?string
+    {
+        return $this->clubhouse;
+    }
+
+    public function setClubhouse(?string $clubhouse): static
+    {
+        $this->clubhouse = $clubhouse;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCodePostale(): ?int
+    {
+        return $this->code_postale;
+    }
+
+    public function setCodePostale(?int $code_postale): static
+    {
+        $this->code_postale = $code_postale;
+
+        return $this;
+    }
+
+    public function isEntente(): ?bool
+    {
+        return $this->entente;
+    }
+
+    public function setEntente(?bool $entente): static
+    {
+        $this->entente = $entente;
 
         return $this;
     }

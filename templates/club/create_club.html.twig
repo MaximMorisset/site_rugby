@@ -5,6 +5,10 @@
   
 {% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
+{% endblock %}
+
 {% block content %}
     <div class="row">
       <div class="col-6 grid-margin stretch-card">
@@ -17,13 +21,15 @@
             {{ form_start(clubForm, {'attr' : {'class':'forms-sample', }}
             ) }}
                     
-            <div class="vide">
               {{ form_row(clubForm.nom, {'attr' : {'class':'form-group form-control', }}
               ) }}
+
+              {{ form_row(clubForm.telephone, {'attr' : {'class':'form-group form-control', }}
+              ) }}
+              
+              {{ form_row(clubForm.clubhouse, {'attr' : {'class':'form-group form-control', }}
+              ) }}
                         
-                      
-            </div>
-            <div class="vide">
               {{ form_row(clubForm.terrains, {'attr' : {'class':'form-group form-control', }}
               ) }}
 
