@@ -56,6 +56,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fondateur = null;
 
+    #[ORM\ManyToMany(targetEntity: Adhesionclub::class, mappedBy: 'relation')]
+    private Collection $adhesionclubs;
+
 
     public function __construct()
     {
@@ -63,6 +66,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         $this->equipes = new ArrayCollection();
         $this->stats = new ArrayCollection();
         $this->club = new ArrayCollection();
+        $this->adhesionclubs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +288,33 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFondateur(?string $fondateur): static
     {
         $this->fondateur = $fondateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adhesionclub>
+     */
+    public function getAdhesionclubs(): Collection
+    {
+        return $this->adhesionclubs;
+    }
+
+    public function addAdhesionclub(Adhesionclub $adhesionclub): static
+    {
+        if (!$this->adhesionclubs->contains($adhesionclub)) {
+            $this->adhesionclubs->add($adhesionclub);
+            $adhesionclub->addRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdhesionclub(Adhesionclub $adhesionclub): static
+    {
+        if ($this->adhesionclubs->removeElement($adhesionclub)) {
+            $adhesionclub->removeRelation($this);
+        }
 
         return $this;
     }
