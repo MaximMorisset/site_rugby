@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Terrain;
 use App\Entity\Club;
 use App\Form\ClubType;
 use App\Repository\ClubRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+ 
 
 class ClubController extends AbstractController
 {
@@ -32,7 +34,11 @@ class ClubController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $terrain = new Terrain();
+            $terrain->setLieu($form->get('terrains')->getData());
+            $entityManager->persist($terrain);
 
+            $club->addTerrain($terrain);
             $entityManager->persist($club);
             $entityManager->flush();
             // do anything else you need here, like send an email

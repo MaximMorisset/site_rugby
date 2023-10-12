@@ -59,7 +59,7 @@
                                             {{ club.telephone }}
                                         </td>
                                         <td>
-                                            Adresse Terrain
+                                            {{ club.terrains |join('|') }}
                                         </td>
                                         <td>
                                             {{ club.clubhouse }}
@@ -78,8 +78,8 @@
                                             {% endif %}
                                         </td>
                                     </td>
-                                {% endfor %}
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

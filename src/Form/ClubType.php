@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ClubType extends AbstractType
@@ -31,6 +33,7 @@ class ClubType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Adresse du Terrain'
                 ],
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank([
                         'message'=> "Veuillez saisir l'adresse du Terrain" 
@@ -56,6 +59,36 @@ class ClubType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message'=> "Veuillez saisir l'adresse du ClubHouse'" 
+                    ])
+                ]
+            ])
+            ->add('code_postale', IntegerType::class,[
+                'label'=> 'Code Postale du Club', 
+                'attr' => [
+                    'placeholder' => 'Code Postale du Club'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message'=> "Veuillez saisir le Code Postale du Club'" 
+                    ])
+                ]
+            ])
+            ->add('ville', TextType::class,[
+                'label'=> 'Ville du Club', 
+                'attr' => [
+                    'placeholder' => 'Ville du Club'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message'=> "Veuillez saisir la Ville du Club'" 
+                    ])
+                ]
+            ])->add('entente', CheckboxType::class,[
+                'label'=> 'Votre club a-t-il une entente ?', 
+                'attr' => [],
+                'constraints' => [
+                    new NotBlank([
+                        'message'=> "Veuillez saisir le Code Postale du Club'" 
                     ])
                 ]
             ])

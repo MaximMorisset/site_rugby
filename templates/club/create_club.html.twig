@@ -2,47 +2,64 @@
 
 {% block title %}
   Création d'un Club
+    
   
 {% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
-{% endblock %}
+  <link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
+  {% endblock %}
 
-{% block content %}
+  {% block content %}
     <div class="row">
       <div class="col-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <h3 class="card-title text-left mb-3">
               Création d'un Club
+                          
             </h3>
+            <div class="form-group">
             {{ form_errors(clubForm) }}
             {{ form_start(clubForm, {'attr' : {'class':'forms-sample', }}
             ) }}
-                    
-              {{ form_row(clubForm.nom, {'attr' : {'class':'form-group form-control', }}
-              ) }}
+                                
+                          
+            {{ form_row(clubForm.nom, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+            
+                          
+            {{ form_row(clubForm.telephone, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+                          
+                          
+            {{ form_row(clubForm.clubhouse, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+                                    
+                          
+            {{ form_row(clubForm.terrains, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+            
+                          
+            {{ form_row(clubForm.code_postale, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+            
+                          
+            {{ form_row(clubForm.ville, {'attr' : {'class':'form-group form-control', }}
+            ) }}
+                          
+            {{ form_row(clubForm.entente, {'attr' : {'class':'form-group form-check form-check-success form-check-label form-check-input', }}
+            ) }}
 
-              {{ form_row(clubForm.telephone, {'attr' : {'class':'form-group form-control', }}
-              ) }}
-              
-              {{ form_row(clubForm.clubhouse, {'attr' : {'class':'form-group form-control', }}
-              ) }}
-                        
-              {{ form_row(clubForm.terrains, {'attr' : {'class':'form-group form-control', }}
-              ) }}
+            <button type="submit" class="btn btn-primary mr-2">
+              Créez un Nouveau Club
+                              
+            </button>
 
-                <button type="submit" class="btn btn-primary mr-2">
-                  Créez un Nouveau Club
-                </button>
-
-              {{ form_end(clubForm) }}
-            </div>    
-            </div>
+            {{ form_end(clubForm) }}
           </div>
         </div>
       </div>
     </div>
-{% endblock %}
-      
+  </div>
+</div>{% endblock %}
