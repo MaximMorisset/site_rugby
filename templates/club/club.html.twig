@@ -2,6 +2,8 @@
 
 {% block title %}
     Club
+                    
+                
             
         
     
@@ -13,6 +15,8 @@
             <div class="card-body">
                 <h4 class="card-title">
                     Vos Club
+                                                                                                                    
+                                                                                                
                                                                             
                                                         
                                     
@@ -23,67 +27,71 @@
                             <tr>
                                 <th>
                                     Logo
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Nom
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Telephone
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Adresse du Terrain
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Adresse du ClubHouse
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Code Postale
+                                                                                                        
+                                                                    
                                 </th>
                                 <th>
                                     Ville
-                                </th>
-                                <th>
-                                    Entente
+                                                                                                        
+                                                                    
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                {% for club in clubs %}
+                            {% for club in clubs %}
+                                <tr>
                                     <td class="py-1">
                                         <img src="../../assets/images/faces-clipart/pic-1.png" alt="image"></td>
-                                        <td>
-                                            {{ club.nom }}
-                                        </td>
-                                        <td>
-                                            {{ club.telephone }}
-                                        </td>
-                                        <td>
-                                            {{ club.terrains |join('|') }}
-                                        </td>
-                                        <td>
-                                            {{ club.clubhouse }}
-                                        </td>
-                                        <td>
-                                            {{ club.codepostale }}
-                                        </td>
-                                        <td>
-                                            {{ club.ville }}
-                                        </td>
-                                        <td>
-                                            {% if club.entente == true %} 
-                                                <i class="mdi mdi-checkbox-blank-circle">
-                                            {% else %}
-                                                <i class="mdi mdi-checkbox-red-circle">
-                                            {% endif %}
-                                        </td>
+                                    <td>
+                                        {{ club.nom }}
                                     </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                    <td>
+                                        {{ club.telephone }}
+                                    </td>
+                                    <td>
+                                        {{ club.terrains |join('|') }}
+                                    </td>
+                                    <td>
+                                        {{ club.clubhouse }}
+                                    </td>
+                                    <td>
+                                        {{ club.codepostale }}
+                                    </td>
+                                    <td>
+                                        {{ club.ville }}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
+    

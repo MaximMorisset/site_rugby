@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
                     'Supporter' =>'ROLE_SUPPORTER',
                     'Joueur' => 'ROLE_JOUEUR',
                     'Entraîneur' => 'ROLE_ENTRAINEUR',
-                    'President' => 'ROLE_PRESIDENT',
+                    'Staff' => 'ROLE_STAFF',
                 ],
                 'multiple' => true, 
                 'expanded' => true, // si je veux afficher les choix comme des cases à cocher

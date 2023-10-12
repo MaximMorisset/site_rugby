@@ -53,6 +53,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Club::class, inversedBy: 'utilisateurs')]
     private Collection $club;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fondateur = null;
+
 
     public function __construct()
     {
@@ -269,6 +272,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeClub(Club $club): static
     {
         $this->club->removeElement($club);
+
+        return $this;
+    }
+
+    public function getFondateur(): ?string
+    {
+        return $this->fondateur;
+    }
+
+    public function setFondateur(?string $fondateur): static
+    {
+        $this->fondateur = $fondateur;
 
         return $this;
     }

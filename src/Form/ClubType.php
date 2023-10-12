@@ -83,14 +83,6 @@ class ClubType extends AbstractType
                         'message'=> "Veuillez saisir la Ville du Club'" 
                     ])
                 ]
-            ])->add('entente', CheckboxType::class,[
-                'label'=> 'Votre club a-t-il une entente ?', 
-                'attr' => [],
-                'constraints' => [
-                    new NotBlank([
-                        'message'=> "Veuillez saisir le Code Postale du Club'" 
-                    ])
-                ]
             ])
         ;
     }

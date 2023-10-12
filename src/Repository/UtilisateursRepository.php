@@ -43,18 +43,61 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
 //    /**
 //     * @return Utilisateurs[] Returns an array of Utilisateurs objects
 //     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+/*public function findUsers(?string $roles)
+{
+    return $this->createQueryBuilder('u')
+        ->where('u.roles = :val')
+        ->setParameter('val', $roles)
+        ->orderBy('u.nom', 'ASC')
+        ->getQuery()
+        ->getResult()
 
+    ;
+}
+
+public function findAllUser(?string $roles)
+    {
+        if (!$roles) {
+            $query = $this->createQueryBuilder('u')
+                ->orderBy('u.nom', 'ASC')
+            ;
+            return $query->getQuery()->getResult();
+        }else {
+            $query = $this->createQueryBuilder('u')
+                ->where('u.roles LIKE :val')
+                ->setParameter('val', $roles)
+                ->orderBy('u.nom', 'ASC')
+            ;
+            return $query->getQuery()->getResult();
+        }
+    }
+
+    public function findUsers(?string $roles)
+{
+    $query = $this->createQueryBuilder('u')
+                    ->orderBy('u.nom', 'ASC');
+    if ($roles) {
+            $query->andWhere('u.roles LIKE :val')
+                        ->setParameter('val', '%'.$roles.'%');
+    }
+        return $query->getQuery()->getResult();
+}*/
+
+public function findUsers(?string $role): array
+{
+    $entityManager = $this->getEntityManager()->getConnection();
+    
+    $query ='
+        SELECT *
+        FROM Utilisateurs 
+        WHERE roles::jsonb ?? :role
+        ORDER BY nom ASC
+    ';
+
+   $resultSet=$entityManager->executeQuery($query, ['role' => $role]);
+
+    return $resultSet->fetchAllAssociative();
+}
 //    public function findOneBySomeField($value): ?Utilisateurs
 //    {
 //        return $this->createQueryBuilder('u')
