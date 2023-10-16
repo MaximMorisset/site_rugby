@@ -48,8 +48,11 @@ class Club
     #[ORM\ManyToMany(targetEntity: Adhesionclub::class, mappedBy: 'relation2')]
     private Collection $adhesionclubs;
 
-    #[ORM\Column(length: 255,  nullable: true)]
-    private ?string $fondateur = null;
+    #[ORM\ManyToOne(inversedBy: 'clubFonda')]
+    private ?Utilisateurs $fondateur = null;
+
+
+
 
     public function __construct()
     {
@@ -259,12 +262,12 @@ class Club
         return $this;
     }
 
-    public function getFondateur(): ?string
+    public function getFondateur(): ?Utilisateurs
     {
         return $this->fondateur;
     }
 
-    public function setFondateur(string $fondateur): static
+    public function setFondateur(?Utilisateurs $fondateur): static
     {
         $this->fondateur = $fondateur;
 

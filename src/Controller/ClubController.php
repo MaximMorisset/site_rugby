@@ -39,6 +39,7 @@ class ClubController extends AbstractController
             $entityManager->persist($terrain);
 
             $club->addTerrain($terrain);
+            $club->setFondateur($this->getUser());
             $entityManager->persist($club);
             $entityManager->flush();
             // do anything else you need here, like send an email

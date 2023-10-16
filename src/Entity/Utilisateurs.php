@@ -59,6 +59,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Adhesionclub::class, mappedBy: 'relation')]
     private Collection $adhesionclubs;
 
+    #[ORM\OneToMany(mappedBy: 'fondateur', targetEntity: Club::class)]
+    private Collection $clubFonda;
+
 
     public function __construct()
     {
@@ -67,6 +70,8 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         $this->stats = new ArrayCollection();
         $this->club = new ArrayCollection();
         $this->adhesionclubs = new ArrayCollection();
+        $this->clubs = new ArrayCollection();
+        $this->clubFonda = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -314,6 +319,36 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->adhesionclubs->removeElement($adhesionclub)) {
             $adhesionclub->removeRelation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Club>
+     */
+    public function getClubFonda(): Collection
+    {
+        return $this->clubFonda;
+    }
+
+    public function addClubFonda(Club $clubFonda): static
+    {
+        if (!$this->clubFonda->contains($clubFonda)) {
+            $this->clubFonda->add($clubFonda);
+            $clubFonda->setFondateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClubFonda(Club $clubFonda): static
+    {
+        if ($this->clubFonda->removeElement($clubFonda)) {
+            // set the owning side to null (unless already changed)
+            if ($clubFonda->getFondateur() === $this) {
+                $clubFonda->setFondateur(null);
+            }
         }
 
         return $this;
