@@ -48,4 +48,20 @@ class ClubController extends AbstractController
             'clubForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/search/club', name: 'search_club')]
+    public function search(Request $request, ClubRepository $clubRepository): Response
+    {
+        return $this->render('club/search.html.twig', [
+            'clubs' => $clubRepository->findBy(["nom"=>$request->query->get('search')]),
+        ]);
+    }
+
+    #[Route('/detail/club/{id}', name: 'detail_club')]
+    public function detail(club $club): Response
+    {
+        return $this->render('club/detail_club.html.twig', [
+            'club' => $club,
+        ]);
+    }
 }

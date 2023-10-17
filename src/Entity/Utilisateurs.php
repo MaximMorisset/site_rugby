@@ -62,6 +62,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'fondateur', targetEntity: Club::class)]
     private Collection $clubFonda;
 
+    #[ORM\OneToMany(mappedBy: 'image_utilisateur', targetEntity: Images::class)]
+    private Collection $images;
+
 
     public function __construct()
     {
@@ -72,6 +75,7 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         $this->adhesionclubs = new ArrayCollection();
         $this->clubs = new ArrayCollection();
         $this->clubFonda = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -354,4 +358,42 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getDisplayName() : ?string {
+        return $this->getNom(). " " . $this->getPrenom();
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setImageUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getImageUtilisateur() === $this) {
+                $image->setImageUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom ?: '';
+    }
 }

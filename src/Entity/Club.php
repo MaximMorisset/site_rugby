@@ -51,6 +51,9 @@ class Club
     #[ORM\ManyToOne(inversedBy: 'clubFonda')]
     private ?Utilisateurs $fondateur = null;
 
+    #[ORM\OneToMany(mappedBy: 'image_club', targetEntity: Images::class)]
+    private Collection $images;
+
 
 
 
@@ -60,6 +63,7 @@ class Club
         $this->equipement = new ArrayCollection();
         $this->terrains = new ArrayCollection();
         $this->adhesionclubs = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -272,5 +276,40 @@ class Club
         $this->fondateur = $fondateur;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setImageClub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getImageClub() === $this) {
+                $image->setImageClub(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom ?: '';
     }
 }

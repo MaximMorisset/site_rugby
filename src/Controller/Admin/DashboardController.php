@@ -9,6 +9,7 @@ use App\Entity\Entrainement;
 use App\Entity\Equipe;
 use App\Entity\EquipeMatch;
 use App\Entity\Equipement;
+use App\Entity\Images;
 use App\Entity\Stats;
 use App\Entity\Terrain;
 use App\Entity\Utilisateurs;
@@ -69,5 +70,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Stats', 'fas fa-map-marker-alt', Stats::class);
         yield MenuItem::linkToCrud('Terrain', 'fas fa-map-marker-alt', Terrain::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-map-marker-alt', Utilisateurs::class);
+        yield MenuItem::linkToCrud('Images', 'fas fa-map-marker-alt', Images::class);
     }
 }
