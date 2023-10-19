@@ -33,10 +33,14 @@ class AdhesionClub
     #[ORM\ManyToMany(targetEntity: Club::class, inversedBy: 'adhesionclubs')]
     private Collection $relation2;
 
+    #[ORM\OneToMany(mappedBy: 'demandeAdhesion', targetEntity: Notification::class)]
+    private Collection $demandeAdhesion;
+
     public function __construct()
     {
         $this->relation = new ArrayCollection();
         $this->relation2 = new ArrayCollection();
+        $this->demandeAdhesion = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +140,36 @@ class AdhesionClub
     public function removeRelation2(Club $relation2): static
     {
         $this->relation2->removeElement($relation2);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getDemandeAdhesion(): Collection
+    {
+        return $this->demandeAdhesion;
+    }
+
+    public function addDemandeAdhesion(Notification $demandeAdhesion): static
+    {
+        if (!$this->demandeAdhesion->contains($demandeAdhesion)) {
+            $this->demandeAdhesion->add($demandeAdhesion);
+            $demandeAdhesion->setDemandeAdhesion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemandeAdhesion(Notification $demandeAdhesion): static
+    {
+        if ($this->demandeAdhesion->removeElement($demandeAdhesion)) {
+            // set the owning side to null (unless already changed)
+            if ($demandeAdhesion->getDemandeAdhesion() === $this) {
+                $demandeAdhesion->setDemandeAdhesion(null);
+            }
+        }
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AdhesionClub;
 use App\Entity\Terrain;
 use App\Entity\Club;
 use App\Form\ClubType;
@@ -63,5 +64,24 @@ class ClubController extends AbstractController
         return $this->render('club/detail_club.html.twig', [
             'club' => $club,
         ]);
+    }
+
+    #[Route('/adhesion/club/{id}', name: 'join_club')]
+    public function joinClub(int $club, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $utilisateur = $this->getUser();
+
+        $demande = new AdhesionClub;
+        $demande->setClub($club);
+        $demande->setUtilisateurs($utilisateur);
+        $demande->setDateDemande(new \DateTime());
+        $demande->setStatutAdhesion('En attente');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($demande);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('page_de_confirmation');
     }
 }

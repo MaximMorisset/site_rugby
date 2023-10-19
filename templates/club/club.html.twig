@@ -1,97 +1,100 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Club
-                    
-                
-            
-        
-    
+	Club
+
+
 {% endblock %}
 
 {% block content %}
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    Vos Club
-                                                                                                                    
-                                                                                                
-                                                                            
-                                                        
-                                    
-                </h4>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Logo
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Nom
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Telephone
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Adresse du Terrain
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Adresse du ClubHouse
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Code Postale
-                                                                                                        
-                                                                    
-                                </th>
-                                <th>
-                                    Ville
-                                                                                                        
-                                                                    
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for club in clubs %}
-                                <tr>
-                                    <td class="py-1">
-                                        <img src="../../assets/images/faces-clipart/pic-1.png" alt="image"></td>
-                                    <td>
-                                        {{ club.nom }}
-                                    </td>
-                                    <td>
-                                        {{ club.telephone }}
-                                    </td>
-                                    <td>
-                                        {{ club.terrains |join('|') }}
-                                    </td>
-                                    <td>
-                                        {{ club.clubhouse }}
-                                    </td>
-                                    <td>
-                                        {{ club.codepostale }}
-                                    </td>
-                                    <td>
-                                        {{ club.ville }}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endblock %}
-    
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title">
+					Vos Club
+
+
+				</h4>
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>
+									Logo
+
+
+								</th>
+								<th>
+									Nom
+
+
+								</th>
+								<th>
+									Telephone
+
+
+								</th>
+								<th>
+									Adresse du Terrain
+
+
+								</th>
+								<th>
+									Adresse du ClubHouse
+
+
+								</th>
+								<th>
+									Code Postale
+
+
+								</th>
+								<th>
+									Ville
+
+
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for club in clubs %}
+								<tr>
+									<td class="py-1">
+										{% if club.images is not empty %}
+											{% for image in club.images %}
+												<img src="{{ asset('assets/images/' ~ image.photo) }}">
+											{% endfor %}
+											{% else %}
+											<!-- Gérer le cas où il n'y a pas d'images -->
+										{% endif %}
+									</td>
+									<td>
+										{{ club.nom }}
+									</td>
+									<td>
+										{{ club.telephone }}
+									</td>
+									<td>
+										{{ club.terrains |join('|') }}
+									</td>
+									<td>
+										{{ club.clubhouse }}
+									</td>
+									<td>
+										{{ club.codepostale }}
+									</td>
+									<td>
+										{{ club.ville }}
+									</td>
+									<td>
+										{{ club.fondateur.displayName|default('Fondateur inconnu') }}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

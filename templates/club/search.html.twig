@@ -43,7 +43,13 @@
 							{% for club in clubs %}
 								<tr {#onclick="myRedirect('{{ path('detail_club', {'id': club.id})}}')"#}>
 									<td class="py-1">
-										{% for images in club.images %} <img src={{ asset('assets/images/') }} {% endfor %}
+									{% if club.images is not empty %}
+										{% for image in club.images %}
+											<img src="{{ asset('assets/images/' ~ image.photo) }}">
+										{% endfor %}
+									{% else %}
+										<!-- Gérer le cas où il n'y a pas d'images -->
+									{% endif %}
 									</td>
 									<td>
 										{{ club.nom }}
@@ -74,9 +80,9 @@
 			</div>
 		</div>
 	</div>
-  <script>
-    function myRedirect(path) {
-      window.location.href=path;
-    }
-  </script>
+	<script>
+		function myRedirect(path) {
+window.location.href = path;
+}
+	</script>
 {% endblock %}
