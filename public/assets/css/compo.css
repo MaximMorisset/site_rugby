@@ -1,3 +1,10 @@
-body{
-    background-image: ;
+.content-wrapper {
+    background-image: url(../images/terrain_rugby.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: rotate(90);
+    padding: 1.875rem 1.75rem;
+    width: 100%;
+    -webkit-flex-grow: 1;
+    flex-grow: 1; 
 }
